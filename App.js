@@ -5,12 +5,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
-function HomeScreen({ navigation }) {
+function HomeScreen({ route, navigation }) {
+
   return (
+    
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
       <Button
-        title="Go to Details"
+      
+        title="STREET"
+        
         onPress={() => {
           /* 1. Navigate to the Details route with params */
           navigation.navigate('Details', {
@@ -19,13 +23,24 @@ function HomeScreen({ navigation }) {
           });
         }}
       />
+
+     
+      <Button
+        title="SEMI-PRO"
+        onPress={() => {
+          /* 1. Navigate to the Details route with params */
+          navigation.navigate('Details');
+        }}
+      />
     </View>
   );
 }
 
 function DetailsScreen({ route, navigation }) {
+  
   /* 2. Get the param */
   const { itemId, otherParam } = route.params;
+  
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Details Screen</Text>
@@ -45,7 +60,6 @@ function DetailsScreen({ route, navigation }) {
   );
 }
 
-
 const Stack = createNativeStackNavigator();
 
 
@@ -54,17 +68,22 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
+        <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        />
+       
+        
+        <Stack.Screen
+        name="Details"
+        component={DetailsScreen}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-<Stack.Screen
-  name="Home"
-  component={HomeScreen}
-  options={{ title: 'Overview' }}
-/>
+
 
 export default App;
