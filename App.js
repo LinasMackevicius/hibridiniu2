@@ -1,8 +1,10 @@
 // In App.js in a new project
-import * as React from 'react';
-import { Button, View, Text, FlatList, StyleSheet, StatusBar, useState } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Button, View, Text, FlatList, StyleSheet, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+
 
 
 function StreetCategoryScreen({navigation, data})
@@ -21,9 +23,24 @@ function StreetCategoryScreen({navigation, data})
 
 const SemiProCategoryScreen = ({ navigation, route }) => {
 
+  const [jsonData, setJsonData] = useState([]);
+
+  useEffect(() => {
+    // Importing local JSON file using require
+    const data = require('./assets/data.json');
+    setJsonData(data);
+  }, []);
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Semi-pro category</Text>
+      
+      {jsonData.map((league, leagueIndex) => (
+        <View key={leagueIndex}>
+          <Text>{`League ID: ${league.league_id}`}</Text>
+          <Text>{`League Title: ${league.league_title}`}</Text>
+        </View>
+      ))}
 
       <Button title="Go back" onPress={() => navigation.goBack()} />
 
