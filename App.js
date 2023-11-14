@@ -9,10 +9,32 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 function StreetCategoryScreen({navigation, data})
 {
+  const [jsonData, setJsonData] = useState([]);
+
+  useEffect(() => {
+    // Importing local JSON file using require
+    const data = require('./assets/data.json');
+    setJsonData(data);
+  }, []);
+
   return(
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
     <Text> Street category </Text>
-    <Text>  </Text>
+
+    <FlatList
+      data={jsonData.filter(league => league.league_id === 2)}
+      
+      keyExtractor={(item) => item.league_id.toString()}
+
+      renderItem={({item}) => (
+        <View>
+          
+        </View>
+      )}
+    
+    />
+
+
     <Button title="Go back" onPress={() => navigation.goBack()} />
 
     </View>
@@ -37,7 +59,9 @@ const SemiProCategoryScreen = ({ navigation, route }) => {
 
       <FlatList
         data={jsonData.filter(league => league.league_title === "SEMI PRO")}
+       
         keyExtractor={(item) => item.league_id.toString()}
+       
         renderItem={({ item }) => (
           <View>
             <Text>{`League Title: ${item.league_title}`}</Text>
@@ -46,15 +70,11 @@ const SemiProCategoryScreen = ({ navigation, route }) => {
                 <Text>{`Driver ID: ${driver.driver_id}`}</Text>
                 <Text>{`Name: ${driver.firstname} ${driver.lastname}`}</Text>
                 <Text>{`Car: ${driver.car}`}</Text>
-                {/* Add additional information as needed */}
               </View>
             ))}
           </View>
         )}
       />
-
-
-
       <Button title="Go back" onPress={() => navigation.goBack()} />
 
     </View>
