@@ -34,13 +34,26 @@ const SemiProCategoryScreen = ({ navigation, route }) => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Semi-pro category</Text>
-      
-      {jsonData.map((league, leagueIndex) => (
-        <View key={leagueIndex}>
-          <Text>{`League ID: ${league.league_id}`}</Text>
-          <Text>{`League Title: ${league.league_title}`}</Text>
-        </View>
-      ))}
+
+      <FlatList
+        data={jsonData.filter(league => league.league_title === "SEMI PRO")}
+        keyExtractor={(item) => item.league_id.toString()}
+        renderItem={({ item }) => (
+          <View>
+            <Text>{`League Title: ${item.league_title}`}</Text>
+            {item.drivers.map((driver, driverIndex) => (
+              <View key={driverIndex}>
+                <Text>{`Driver ID: ${driver.driver_id}`}</Text>
+                <Text>{`Name: ${driver.firstname} ${driver.lastname}`}</Text>
+                <Text>{`Car: ${driver.car}`}</Text>
+                {/* Add additional information as needed */}
+              </View>
+            ))}
+          </View>
+        )}
+      />
+
+
 
       <Button title="Go back" onPress={() => navigation.goBack()} />
 
