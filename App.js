@@ -1,12 +1,8 @@
 // In App.js in a new project
 import * as React from 'react';
-import { Button, View, Text, useState, FlatList, StyleSheet, StatusBar } from 'react-native';
+import { Button, View, Text, FlatList, StyleSheet, StatusBar, useState } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-import drivers from './data.json';
-
-
 
 
 function StreetCategoryScreen({navigation, data})
@@ -21,29 +17,16 @@ function StreetCategoryScreen({navigation, data})
 
   );
 }
-const Item = ({ driver_id, firstname, lastname, car }) => (
-  <View style={styles.item}>
-    <Text style={styles.title}> {`${firstname} ${lastname} - ${car}`} </Text>
-  </View>
-);
 
-const renderItem = ({ item }) => (
-  <Item driver_id={item.driver_id} firstname={item.firstname} lastname={item.lastname} car={item.car} />)
 
-const SemiProCategoryScreen = ({ navigation }) => {
-  
+const SemiProCategoryScreen = ({ navigation, route }) => {
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Semi-pro category</Text>
-     
-      <FlatList
-        data={drivers}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.driver_id}
-       
-      />
 
       <Button title="Go back" onPress={() => navigation.goBack()} />
+
     </View>
   );
 };
@@ -71,8 +54,7 @@ function HomeScreen({ route, navigation }) {
       <Button
         title="SEMI-PRO"
         onPress={() => {
-          /* 1. Navigate to the Details route with params */
-          navigation.navigate('semiPro');
+          navigation.navigate('SemiPro');
         }}
       />
     </View>
@@ -99,7 +81,7 @@ function App() {
         />
 
         <Stack.Screen
-        name="semiPro"
+        name="SemiPro"
         component={SemiProCategoryScreen}
         />
 
