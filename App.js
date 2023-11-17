@@ -28,10 +28,16 @@ function StreetCategoryScreen({navigation, data})
 
       renderItem={({item}) => (
         <View>
-          
+          <Text>{`League Title: ${item.league_title}`}</Text>
+            {item.drivers.map((driver, driverIndex) => (
+              <View key={driverIndex} style={styles.driverStyle}>
+                <Text>{`Driver ID: ${driver.driver_id}`}</Text>
+                <Text>{`Name: ${driver.firstname} ${driver.lastname}`}</Text>
+                <Text>{`Car: ${driver.car}`}</Text>
+              </View>
+            ))}
         </View>
       )}
-    
     />
 
 
@@ -41,6 +47,13 @@ function StreetCategoryScreen({navigation, data})
 
   );
 }
+
+const sumTheScoresOfTheDriver = (raceResults) => {
+  if (!raceResults) return 0;
+  
+  // Calculate the total tandem points for a driver
+  return raceResults.reduce((totalPoints, race) => totalPoints + race.tandem_points, 0);
+};
 
 
 const SemiProCategoryScreen = ({ navigation, route }) => {
@@ -58,25 +71,28 @@ const SemiProCategoryScreen = ({ navigation, route }) => {
       <Text>Semi-pro category</Text>
 
       <FlatList
-        data={jsonData.filter(league => league.league_title === "SEMI PRO")}
+        data={jsonData.filter(league => league.league_id === 1)}
        
         keyExtractor={(item) => item.league_id.toString()}
        
         renderItem={({ item }) => (
           <View>
             <Text>{`League Title: ${item.league_title}`}</Text>
+
             {item.drivers.map((driver, driverIndex) => (
-              <View key={driverIndex}>
+
+              <View key={driverIndex} style={styles.driverStyle}>
                 <Text>{`Driver ID: ${driver.driver_id}`}</Text>
                 <Text>{`Name: ${driver.firstname} ${driver.lastname}`}</Text>
                 <Text>{`Car: ${driver.car}`}</Text>
+                <Text>{`Score: ${sumTheScoresOfTheDriver(driver.race)}`}</Text>
               </View>
+
             ))}
           </View>
         )}
       />
       <Button title="Go back" onPress={() => navigation.goBack()} />
-
     </View>
   );
 };
@@ -145,7 +161,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
   },
-  item: {
+  driverStyle: {
     backgroundColor: '#f9c2ff',
     padding: 20,
     marginVertical: 8,
