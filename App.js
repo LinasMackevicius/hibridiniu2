@@ -4,6 +4,8 @@ import { Button, View, Text, FlatList, StyleSheet, StatusBar } from 'react-nativ
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { sumTheScoresOfTheDriver } from './sumUp';
+
 
 
 
@@ -31,9 +33,9 @@ function StreetCategoryScreen({navigation, data})
           <Text>{`League Title: ${item.league_title}`}</Text>
             {item.drivers.map((driver, driverIndex) => (
               <View key={driverIndex} style={styles.driverStyle}>
-                <Text>{`Driver ID: ${driver.driver_id}`}</Text>
                 <Text>{`Name: ${driver.firstname} ${driver.lastname}`}</Text>
                 <Text>{`Car: ${driver.car}`}</Text>
+                <Text>{`Score: ${sumTheScoresOfTheDriver(driver.race)}`}</Text>
               </View>
             ))}
         </View>
@@ -47,14 +49,6 @@ function StreetCategoryScreen({navigation, data})
 
   );
 }
-
-const sumTheScoresOfTheDriver = (raceResults) => {
-  if (!raceResults) return 0;
-  
-  // Calculate the total tandem points for a driver
-  return raceResults.reduce((totalPoints, race) => totalPoints + race.tandem_points, 0);
-};
-
 
 const SemiProCategoryScreen = ({ navigation, route }) => {
 
@@ -82,10 +76,12 @@ const SemiProCategoryScreen = ({ navigation, route }) => {
             {item.drivers.map((driver, driverIndex) => (
 
               <View key={driverIndex} style={styles.driverStyle}>
-                <Text>{`Driver ID: ${driver.driver_id}`}</Text>
                 <Text>{`Name: ${driver.firstname} ${driver.lastname}`}</Text>
                 <Text>{`Car: ${driver.car}`}</Text>
                 <Text>{`Score: ${sumTheScoresOfTheDriver(driver.race)}`}</Text>
+
+                <Button title="more" onPress={() => navigation.goBack()} />
+
               </View>
 
             ))}
@@ -96,6 +92,8 @@ const SemiProCategoryScreen = ({ navigation, route }) => {
     </View>
   );
 };
+
+
 
 
 
