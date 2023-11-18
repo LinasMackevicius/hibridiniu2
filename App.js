@@ -1,16 +1,48 @@
 // In App.js in a new project
-import * as React from 'react';
-import { Button, View, Text, FlatList, StyleSheet, StatusBar, useState } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Button, View, Text, FlatList, StyleSheet, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import { sumTheScoresOfTheDriver } from './sumUp';
+
+
 
 
 function StreetCategoryScreen({navigation, data})
 {
+  const [jsonData, setJsonData] = useState([]);
+
+  useEffect(() => {
+    // Importing local JSON file using require
+    const data = require('./assets/data.json');
+    setJsonData(data);
+  }, []);
+
   return(
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
     <Text> Street category </Text>
-    <Text>  </Text>
+
+    <FlatList
+      data={jsonData.filter(league => league.league_id === 2)}
+      
+      keyExtractor={(item) => item.league_id.toString()}
+
+      renderItem={({item}) => (
+        <View>
+          <Text>{`League Title: ${item.league_title}`}</Text>
+            {item.drivers.map((driver, driverIndex) => (
+              <View key={driverIndex} style={styles.driverStyle}>
+                <Text>{`Name: ${driver.firstname} ${driver.lastname}`}</Text>
+                <Text>{`Car: ${driver.car}`}</Text>
+                <Text>{`Score: ${sumTheScoresOfTheDriver(driver.race)}`}</Text>
+              </View>
+            ))}
+        </View>
+      )}
+    />
+
+
     <Button title="Go back" onPress={() => navigation.goBack()} />
 
     </View>
@@ -18,18 +50,50 @@ function StreetCategoryScreen({navigation, data})
   );
 }
 
-
 const SemiProCategoryScreen = ({ navigation, route }) => {
+
+  const [jsonData, setJsonData] = useState([]);
+
+  useEffect(() => {
+    // Importing local JSON file using require
+    const data = require('./assets/data.json');
+    setJsonData(data);
+  }, []);
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Semi-pro category</Text>
 
-      <Button title="Go back" onPress={() => navigation.goBack()} />
+      <FlatList
+        data={jsonData.filter(league => league.league_id === 1)}
+       
+        keyExtractor={(item) => item.league_id.toString()}
+       
+        renderItem={({ item }) => (
+          <View>
+            <Text>{`League Title: ${item.league_title}`}</Text>
 
+            {item.drivers.map((driver, driverIndex) => (
+
+              <View key={driverIndex} style={styles.driverStyle}>
+                <Text>{`Name: ${driver.firstname} ${driver.lastname}`}</Text>
+                <Text>{`Car: ${driver.car}`}</Text>
+                <Text>{`Score: ${sumTheScoresOfTheDriver(driver.race)}`}</Text>
+
+                <Button title="more" onPress={() => navigation.goBack()} />
+
+              </View>
+
+            ))}
+          </View>
+        )}
+      />
+      <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );
 };
+
+
 
 
 
@@ -95,7 +159,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
   },
-  item: {
+  driverStyle: {
     backgroundColor: '#f9c2ff',
     padding: 20,
     marginVertical: 8,
