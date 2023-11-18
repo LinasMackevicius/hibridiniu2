@@ -7,8 +7,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { sumTheScoresOfTheDriver } from './sumUp';
 
 
-
-
 function StreetCategoryScreen({navigation, data})
 {
   const [jsonData, setJsonData] = useState([]);
@@ -80,10 +78,8 @@ const SemiProCategoryScreen = ({ navigation, route }) => {
                 <Text>{`Car: ${driver.car}`}</Text>
                 <Text>{`Score: ${sumTheScoresOfTheDriver(driver.race)}`}</Text>
 
-                <Button title="more" onPress={() => navigation.goBack()} />
-
+                <Button title="more" onPress={() => navigation.navigate('DriverInfo', {driverData: driver})} />
               </View>
-
             ))}
           </View>
         )}
@@ -93,9 +89,38 @@ const SemiProCategoryScreen = ({ navigation, route }) => {
   );
 };
 
+const DriverInfoScreen = ({ route, navigation }) => {
 
+  const { driverData } = route.params; // Get the selected driver's data
 
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+     
+      <Text>INFORMATION ABOUT DRIVER</Text>
 
+      <FlatList
+        
+        data={driverData.race} // Display the race information of the selected driver
+        
+        keyExtractor={(item) => item.race_id.toString()}
+       
+        renderItem={({ item }) => (
+         
+         <View style={styles.raceInfoStyle}>
+            <Text style= {styles.simpleStyle} >{`RACE: ${item.race_information}`}</Text>
+            
+            <Text>{`Qualification Position: ${item.qualification_position}`}</Text>
+            <Text>{`Qualification Result: ${item.qualification_result}`}</Text>
+            <Text>{`Qualification Points: ${item.qualification_points}`}</Text>
+            <Text>{`Tandem result: ${item.tandem_result}`}</Text>
+            <Text>{`Tandem points: ${item.tandem_points}`}</Text>
+          </View>
+        )}
+      />
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+    </View>
+  );
+};
 
 function HomeScreen({ route, navigation }) {
 
@@ -149,6 +174,12 @@ function App() {
         component={SemiProCategoryScreen}
         />
 
+        <Stack.Screen
+        name="DriverInfo"
+        component={DriverInfoScreen}
+        />
+
+
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -165,12 +196,25 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     marginHorizontal: 16,
   },
+
+  raceInfoStyle: {
+    backgroundColor: 'yellow',
+    padding: 20,
+    marginVertical: 10,
+    marginHorizontal: 20,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+
+  simpleStyle:{
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+
   title: {
     fontSize: 32,
   },
 });
-
-
 
 
 export default App;
