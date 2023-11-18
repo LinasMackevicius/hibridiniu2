@@ -19,7 +19,7 @@ function StreetCategoryScreen({navigation, data})
 
   return(
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <Text> Street category </Text>
+    <Text style = {styles.title}> Street category </Text>
 
     <FlatList
       data={jsonData.filter(league => league.league_id === 2)}
@@ -28,7 +28,6 @@ function StreetCategoryScreen({navigation, data})
 
       renderItem={({item}) => (
         <View>
-          <Text>{`League Title: ${item.league_title}`}</Text>
             {item.drivers.map((driver, driverIndex) => (
               <View key={driverIndex} style={styles.driverStyle}>
                 <Text>{`Name: ${driver.firstname} ${driver.lastname}`}</Text>
@@ -126,15 +125,13 @@ const DriverInfoScreen = ({ route, navigation }) => {
 };
 
 function HomeScreen({ route, navigation }) {
-
   return (
     
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-      <Button
 
+      <Button
         title="STREET"
-        
+  
         onPress={() => {
           /* 1. Navigate to the Details route with params */
           navigation.navigate('Street');
@@ -216,6 +213,7 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 32,
+    fontWeight: "bold"
   },
 });
 
