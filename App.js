@@ -5,51 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { sumTheScoresOfTheDriver } from './sumUp';
-
-
-function StreetCategoryScreen({navigation, data})
-{
-  const [jsonData, setJsonData] = useState([]);
-
-  useEffect(() => {
-    // Importing local JSON file using require
-    const data = require('./assets/data.json');
-    setJsonData(data);
-  }, []);
-
-  return(
-    <View style={{ flex: 1, alignItems: 'left', justifyContent: 'left' }}>
-
-    <Text style = {styles.title}> STREET </Text>
-
-    <FlatList
-      data={jsonData.filter(league => league.league_id === 2)}
-      
-      keyExtractor={(item) => item.league_id.toString()}
-
-      renderItem={({item}) => (
-        <View>
-            {item.drivers.map((driver, driverIndex) => (
-              <View key={driverIndex} style={styles.driverStyle}>
-                <Text>{`Name: ${driver.firstname} ${driver.lastname}`}</Text>
-                <Text>{`Car: ${driver.car}`}</Text>
-                <Text>{`Score: ${sumTheScoresOfTheDriver(driver.race)}`}</Text>
-
-                <Pressable style={styles.smallButton}  onPress={() => navigation.navigate('DriverInfo', {driverData: driver})}>
-                <Text> more </Text>
-                </Pressable>
-
-              </View>
-            ))}
-        </View>
-      )}
-    />
-    <Button title="Go back" onPress={() => navigation.goBack()} />
-
-    </View>
-
-  );
-}
+import {StreetCategoryScreen} from './StreetCategory.js'
+import {styles} from './myStyles.js'
 
 const SemiProCategoryScreen = ({ navigation, route }) => {
 
@@ -179,62 +136,6 @@ function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-  },
-  driverStyle: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderBlockColor: "black",
-    borderWidth: 3,
-  },
-
-  raceInfoStyle: {
-    backgroundColor: 'yellow',
-    padding: 20,
-    marginVertical: 10,
-    marginHorizontal: 20,
-    fontSize: 20,
-    fontWeight: 'bold',
-    borderBlockColor: "black",
-    borderWidth: 3,
-  },
-
-  simpleStyle:{
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-
-  title: {
-    fontSize: 32,
-    fontWeight: "bold"
-  },
-
-  buttonPressable: {
-    height: 50,
-    width: 250,
-    backgroundColor: 'yellow',
-  },
-
-  buttonText: {
-    textAlignVertical: 'center',
-    alignItems: 'flex-end',
-    fontWeight: "bold",
-    fontSize: 25,
-    textAlign: 'left'
-  },
-
-  smallButton: {
-    backgroundColor: 'yellow',
-    width: 50,
-    borderBlockColor: "black",
-    borderWidth: 1,
-  }
-});
 
 
 export default App;
