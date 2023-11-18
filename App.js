@@ -1,6 +1,6 @@
 // In App.js in a new project
 import React, { useState, useEffect } from 'react';
-import { Button, View, Text, FlatList, StyleSheet, StatusBar } from 'react-native';
+import { Button, View, Text, FlatList, StyleSheet, StatusBar, Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -18,8 +18,9 @@ function StreetCategoryScreen({navigation, data})
   }, []);
 
   return(
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <Text style = {styles.title}> Street category </Text>
+    <View style={{ flex: 1, alignItems: 'left', justifyContent: 'left' }}>
+
+    <Text style = {styles.title}> STREET </Text>
 
     <FlatList
       data={jsonData.filter(league => league.league_id === 2)}
@@ -34,14 +35,15 @@ function StreetCategoryScreen({navigation, data})
                 <Text>{`Car: ${driver.car}`}</Text>
                 <Text>{`Score: ${sumTheScoresOfTheDriver(driver.race)}`}</Text>
 
-                <Button title="more" onPress={() => navigation.navigate('DriverInfo', {driverData: driver})} />
+                <Pressable style={styles.smallButton}  onPress={() => navigation.navigate('DriverInfo', {driverData: driver})}>
+                <Text> more </Text>
+                </Pressable>
+
               </View>
             ))}
         </View>
       )}
     />
-
-
     <Button title="Go back" onPress={() => navigation.goBack()} />
 
     </View>
@@ -60,8 +62,8 @@ const SemiProCategoryScreen = ({ navigation, route }) => {
   }, []);
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Semi-pro category</Text>
+    <View style={{ flex: 1, alignItems: 'left', justifyContent: 'center' }}>
+      <Text style={styles.title}>SEMI RPO</Text>
 
       <FlatList
         data={jsonData.filter(league => league.league_id === 1)}
@@ -70,16 +72,15 @@ const SemiProCategoryScreen = ({ navigation, route }) => {
        
         renderItem={({ item }) => (
           <View>
-            <Text>{`League Title: ${item.league_title}`}</Text>
-
             {item.drivers.map((driver, driverIndex) => (
 
               <View key={driverIndex} style={styles.driverStyle}>
                 <Text>{`Name: ${driver.firstname} ${driver.lastname}`}</Text>
                 <Text>{`Car: ${driver.car}`}</Text>
                 <Text>{`Score: ${sumTheScoresOfTheDriver(driver.race)}`}</Text>
-
-                <Button title="more" onPress={() => navigation.navigate('DriverInfo', {driverData: driver})} />
+                <Pressable style={styles.smallButton}  onPress={() => navigation.navigate('DriverInfo', {driverData: driver})} >
+                <Text> more </Text>
+                </Pressable>
               </View>
             ))}
           </View>
@@ -96,9 +97,9 @@ const DriverInfoScreen = ({ route, navigation }) => {
   const { driverData } = route.params; // Get the selected driver's data
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, alignItems: 'left', justifyContent: 'center' }}>
      
-      <Text>INFORMATION ABOUT DRIVER</Text>
+      <Text>INFORMATION ABOUT DRIVER </Text>
 
       <FlatList
         
@@ -126,26 +127,19 @@ const DriverInfoScreen = ({ route, navigation }) => {
 
 function HomeScreen({ route, navigation }) {
   return (
-    
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, alignItems: 'left', justifyContent: 'left', backgroundColor: '#1822db' }}>
 
-      <Button
-        title="STREET"
-  
-        onPress={() => {
-          /* 1. Navigate to the Details route with params */
-          navigation.navigate('Street');
-        }}
-      />
+      <View style={{ marginVertical: 10 }} />
+      
+      <Pressable style={styles.buttonPressable} onPress={onPressFunction = () => {navigation.navigate('Street')}}>
+      <Text style={styles.buttonText}> STREET</Text>
+      </Pressable>
 
     <View style={{ marginVertical: 10 }} />
       
-      <Button
-        title="SEMI-PRO"
-        onPress={() => {
-          navigation.navigate('SemiPro');
-        }}
-      />
+    <Pressable style={styles.buttonPressable} onPress={onPressFunction = () => {navigation.navigate('SemiPro')}}>
+      <Text style={styles.buttonText}> SEMI PRO</Text>
+      </Pressable>
     </View>
   );
 }
@@ -195,6 +189,8 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+    borderBlockColor: "black",
+    borderWidth: 3,
   },
 
   raceInfoStyle: {
@@ -204,6 +200,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     fontSize: 20,
     fontWeight: 'bold',
+    borderBlockColor: "black",
+    borderWidth: 3,
   },
 
   simpleStyle:{
@@ -215,6 +213,27 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: "bold"
   },
+
+  buttonPressable: {
+    height: 50,
+    width: 250,
+    backgroundColor: 'yellow',
+  },
+
+  buttonText: {
+    textAlignVertical: 'center',
+    alignItems: 'flex-end',
+    fontWeight: "bold",
+    fontSize: 25,
+    textAlign: 'left'
+  },
+
+  smallButton: {
+    backgroundColor: 'yellow',
+    width: 50,
+    borderBlockColor: "black",
+    borderWidth: 1,
+  }
 });
 
 
