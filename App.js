@@ -234,8 +234,6 @@ const styles = StyleSheet.create({
     borderBlockColor: "black",
     borderWidth: 1,
   }
-
-  
 });
 
 
