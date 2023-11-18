@@ -34,6 +34,8 @@ function StreetCategoryScreen({navigation, data})
                 <Text>{`Name: ${driver.firstname} ${driver.lastname}`}</Text>
                 <Text>{`Car: ${driver.car}`}</Text>
                 <Text>{`Score: ${sumTheScoresOfTheDriver(driver.race)}`}</Text>
+
+                <Button title="more" onPress={() => navigation.navigate('DriverInfo', {driverData: driver})} />
               </View>
             ))}
         </View>
@@ -88,6 +90,7 @@ const SemiProCategoryScreen = ({ navigation, route }) => {
     </View>
   );
 };
+
 
 const DriverInfoScreen = ({ route, navigation }) => {
 
