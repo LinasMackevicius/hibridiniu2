@@ -1,4 +1,4 @@
-// helpers.js
+
 export const sumTheScoresOfTheDriver = (raceResults) => {
     if (!raceResults) return 0;
     
