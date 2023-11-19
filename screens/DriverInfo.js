@@ -8,7 +8,7 @@ import styles from '../myStyles.js'
 
 const DriverInfoScreen = ({ route, navigation }) => {
 
-    const { driverData } = route.params; // Get the selected driver's data
+    const { driverData } = route.params;
     const { firstname, lastname } = driverData;
   
     return (

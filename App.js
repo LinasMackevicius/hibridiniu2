@@ -1,4 +1,4 @@
-// In App.js in a new project
+
 import React, { useState, useEffect } from 'react';
 import { Button, View, Text, FlatList, StyleSheet, StatusBar, Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
