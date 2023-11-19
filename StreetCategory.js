@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, View, Text, FlatList, StyleSheet, StatusBar, Pressable } from 'react-native';
-
+import { Button, View, Text, FlatList, Pressable } from 'react-native';
 
 import { sumTheScoresOfTheDriver } from './sumUp';
-
-
-
-import { styles } from './myStyles.js'; // Import your common styles
+import styles from './myStyles.js';
 
 function StreetCategoryScreen({ navigation }) {
+
   const [jsonData, setJsonData] = useState([]);
 
   useEffect(() => {
@@ -47,3 +44,5 @@ function StreetCategoryScreen({ navigation }) {
 }
 
 export default StreetCategoryScreen;
+
+
