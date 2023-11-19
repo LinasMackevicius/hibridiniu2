@@ -2,22 +2,23 @@
 import React, { useState, useEffect } from 'react';
 import { Button, View, Text, FlatList } from 'react-native';
 
-import styles from './myStyles.js'
+import styles from '../myStyles.js'
 
 
 
 const DriverInfoScreen = ({ route, navigation }) => {
 
     const { driverData } = route.params; // Get the selected driver's data
+    const { firstname, lastname } = driverData;
   
     return (
       <View style={{ flex: 1, alignItems: 'left', justifyContent: 'center' }}>
        
-        <Text>INFORMATION ABOUT DRIVER </Text>
-  
+        <Text style={styles.driver1}> {firstname} {lastname} </Text>
+
         <FlatList
           
-          data={driverData.race} // Display the race information of the selected driver
+          data={driverData.race}
           
           keyExtractor={(item) => item.race_id.toString()}
          

@@ -6,11 +6,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import styles from './myStyles.js'
 
-import StreetCategoryScreen from './StreetCategory.js';
-import SemiProCategoryScreen from './SemiProCategory.js';
-import DriverInfoScreen from './DriverInfo.js';
-
-
+import StreetCategoryScreen from './screens/StreetCategory.js';
+import SemiProCategoryScreen from './screens/SemiProCategory.js';
+import DriverInfoScreen from './screens/DriverInfo.js';
 
 
 function HomeScreen({ route, navigation }) {
@@ -31,7 +29,6 @@ function HomeScreen({ route, navigation }) {
     </View>
   );
 }
-
 
 const Stack = createNativeStackNavigator();
 

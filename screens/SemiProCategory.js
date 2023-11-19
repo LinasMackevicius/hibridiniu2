@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, View, Text, FlatList, Pressable } from 'react-native';
 
-import { sumTheScoresOfTheDriver } from './sumUp';
-import styles from './myStyles.js'; 
+import { sumTheScoresOfTheDriver } from '../sumUp.js';
+import styles from '../myStyles.js'; 
 
 const SemiProCategoryScreen = ({ navigation, route }) => {
 
@@ -10,7 +10,7 @@ const SemiProCategoryScreen = ({ navigation, route }) => {
   
     useEffect(() => {
       // Importing local JSON file using require
-      const data = require('./assets/data.json');
+      const data = require('../assets/data.json');
       setJsonData(data);
     }, []);
   

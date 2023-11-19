@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Button, View, Text, FlatList, Pressable } from 'react-native';
 
-import { sumTheScoresOfTheDriver } from './sumUp';
-import styles from './myStyles.js';
+import { sumTheScoresOfTheDriver } from '../sumUp.js';
+import styles from '../myStyles.js';
 
 function StreetCategoryScreen({ navigation }) {
 
   const [jsonData, setJsonData] = useState([]);
 
   useEffect(() => {
-    const data = require('./assets/data.json');
+    const data = require('../assets/data.json');
     setJsonData(data);
   }, []);
 

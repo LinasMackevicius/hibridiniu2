@@ -55,6 +55,13 @@ const styles = StyleSheet.create({
     borderBlockColor: 'black',
     borderWidth: 1,
   },
+
+  driver1: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center'
+
+  }
 });
 
 export default styles;
