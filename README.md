@@ -1,4 +1,4 @@
-# Race events info application
+# Race Events Info Application
 
 This Expo project is designed to display race information from a JSON file. It utilizes React Native and React Navigation to create a mobile app interface for users to view different race categories and related information.
 
