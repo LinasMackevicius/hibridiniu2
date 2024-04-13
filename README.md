@@ -7,8 +7,7 @@ This Expo project is designed to display race information from a JSON file. It u
 - [Usage](#usage)
 - [Features](#features)
 - [Contributing](#contributing)
-- [License](#license)
-
+  
 ## Installation
 
 To run this Expo project locally, follow these steps:
